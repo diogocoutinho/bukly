@@ -12,6 +12,7 @@
                         </x-secondary-button>
                     </div>
                 </div>
+                @if($hotels->count() > 0)
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <table class="table-auto w-full">
                         <thead>
@@ -52,6 +53,11 @@
                         </tbody>
                     </table>
                 </div>
+                @else
+                    <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                        <p>{{ __('No hotels found') }}</p>
+                    </div>
+                @endif
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     {{ $hotels->links() }}
                 </div>

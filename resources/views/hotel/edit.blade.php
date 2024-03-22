@@ -11,10 +11,14 @@
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <form action="{{ route('hotels.update', $hotel->id) }}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Name') }}</label>
-                            <input type="text" name="name" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $hotel->name }}" required>
+                            <input type="text" onchange="" name="name" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $hotel->name }}" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="zip_code" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Zip') }}</label>
+                            <input type="text" name="zip_code" id="zip_code" onblur="getAddress()" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $hotel->zip_code }}" required>
                         </div>
                         <div class="mb-4">
                             <label for="address" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Address') }}</label>
@@ -27,10 +31,6 @@
                         <div class="mb-4">
                             <label for="state" class="block text-gray-700 text-sm font-bold mb-2">{{ __('State') }}</label>
                             <input type="text" name="state" id="state" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $hotel->state }}" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="zip_code" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Zip') }}</label>
-                            <input type="text" name="zip_code" id="zip_code" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $hotel->zip_code }}" required>
                         </div>
                         <div class="flex items center justify-between">
                             <x-secondary-button type="submit">
@@ -46,3 +46,25 @@
         </div>
     </div>
 </x-app-layout>
+<script >
+    function changeAddress() {
+        document.querySelector('form').addEventListener('submit', function(event) {
+            // Impede a submissão do formulário
+            event.preventDefault();
+
+            // Obtém os valores dos campos de entrada
+            var name = document.getElementById('name').value;
+            var zip_code = document.getElementById('zip_code').value;
+            var address = document.getElementById('address').value;
+            var city = document.getElementById('city').value;
+            var state = document.getElementById('state').value;
+
+            // Exibe os valores
+            alert('Name: ' + name + '\nZip: ' + zip_code + '\nAddress: ' + address + '\nCity: ' + city + '\nState: ' + state);
+
+            // Continua a submissão do formulário
+            event.target.submit();
+        });
+        alert(JSON.stringify({{$hotel}}))
+    }
+</script>

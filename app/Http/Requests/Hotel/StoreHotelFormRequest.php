@@ -5,6 +5,39 @@ namespace App\Http\Requests\Hotel;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema (
+ *     schema="StoreHotelFormRequest",
+ *     title="StoreHotelFormRequest",
+ *     required={"name", "address", "city", "state", "zip_code"},
+ *     description="Store Hotel Form Request",
+ *     @OA\Property(
+ *          property="name",
+ *          type="string",
+ *          description="Hotel name",
+ *     ),
+ *     @OA\Property(
+ *          property="address",
+ *          type="string"
+ *     ),
+ *     @OA\Property(
+ *          property="city",
+ *          type="string"
+ *     ),
+ *     @OA\Property(
+ *          property="state",
+ *          type="string"
+ *     ),
+ *     @OA\Property(
+ *          property="zip_code",
+ *          type="string"
+ *     ),
+ *     @OA\Property(
+ *          property="website",
+ *          type="string"
+ *     )
+ * )
+ */
 class StoreHotelFormRequest extends FormRequest
 {
     /**
@@ -12,7 +45,7 @@ class StoreHotelFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return true;
     }
 
     /**

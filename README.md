@@ -1,66 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Teste para Desenvolvedor(a) PHP - Bulky
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um projeto de exemplo para o teste de desenvolvedor(a) PHP da Bulky. O objetivo deste projeto é avaliar as habilidades do(a) candidato(a) em desenvolvimento web com PHP e Laravel.
 
-## About Laravel
+## Sobre o Projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O projeto consiste em uma aplicação web para gerenciamento de hoteis e seus respectivos quartos. O sistema deve permitir o cadastro de hoteis e quartos, bem como a visualização e edição dos mesmos.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tecnologias Utilizadas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP
+- Laravel
+- JavaScript
+- MySQL
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Para rodar este projeto, você precisa ter os seguintes softwares instalados em seu sistema:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 7.4 ou superior
+- Composer
+- Node.js
+- NPM
+- MySQL
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Além disso, você precisa ter uma cópia deste repositório em seu sistema local.
 
-## Laravel Sponsors
+## Configuração do Ambiente de Desenvolvimento
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente do seu projeto. Altere as variáveis `DB_DATABASE`, `DB_USERNAME` e `DB_PASSWORD` para as configurações do seu banco de dados.
+Altere a variável `APP_URL` para a URL do seu projeto.
+Em seguida, execute os seguintes comandos:
 
-### Premium Partners
+```bash
+# Instalar as dependências do PHP
+composer install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+# Instalar as dependências do JavaScript
+npm install
 
-## Contributing
+# Gerar a chave de aplicação
+php artisan key:generate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Criar a estrutura do banco de dados
+php artisan migrate
 
-## Code of Conduct
+# Popular o banco de dados com dados de exemplo
+php artisan db:seed --class=CreateHotelsAndRooms
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Como Rodar o Projeto
 
-## Security Vulnerabilities
+Para rodar o projeto, execute o seguinte comando:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan serve
+```
 
-## License
+## Estrutura do Projeto
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+O projeto está organizado da seguinte forma:
+
+- `app/`: Contém os modelos, controllers e outros arquivos PHP do projeto.
+- `database/`: Contém as factories, migrações e seeds do projeto.
+- `public/`: Contém os arquivos públicos do projeto, como imagens, CSS e JavaScript.
+- `resources/`: Contém os arquivos de recursos do projeto, como as views, arquivos de tradução e arquivos de JavaScript e CSS.
+- `routes/`: Contém os arquivos de rotas do projeto.
+- `tests/`: Contém os testes do projeto.
+
+## Funcionalidades
+
+A aplicação deve possuir as seguintes funcionalidades:
+
+- Cadastro de hoteis
+- Cadastro de quartos
+- Visualização de hoteis
+- Visualização de quartos
+- Edição de hoteis
+- Edição de quartos
+- Exclusão de hoteis
+- Exclusão de quartos
+
+## Testes
+
+Os testes do projeto estão localizados no diretório `tests/Feature`. Agrupei os testes de hoteis e quartos para facilitar a execução dos mesmos. Para rodar os testes, execute o seguinte comando:
+
+```bash
+php artisan test --group=room,hotel
+```
+
+## Autor
+
+Desenvolvido por [Diogo C. Coutinho](https://www.linkedin.com/in/diogoccoutinho/). 
+
+Repositório original em [GitHub](https://github.com/diogocoutinho/bukly)
+
+

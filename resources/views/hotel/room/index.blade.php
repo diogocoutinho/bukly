@@ -8,17 +8,21 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                    <div class="text-2xl">
-                        {{ __('Rooms') }}
+                    <div class="flex items-center justify-between p-6 sm:px-20 bg-white border-b border-gray-200">
+                        <div class="text-2xl">
+                            {{ $hotelName ?? __('Hotels') }}
+                        </div>
+                        <div>
+                            <x-secondary-button onclick="window.location='{{ route('hotels.index') }}'">
+                                {{ __('Back') }}
+                            </x-secondary-button>
+                            <x-secondary-button onclick="window.location='{{ route('hotels.rooms.create', ['hotel' => $hotel]) }}'">
+                                {{ __('Create') }}
+                            </x-secondary-button>
+                        </div>
                     </div>
-                </div>
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                    <div class="flex justify-end">
-                        <a href="{{ route('hotels.rooms.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            {{ __('Create') }}
-                        </a>
-                    </div>
+
                     <table class="w-full">
                         <thead>
                             <tr>
@@ -33,21 +37,27 @@
                                     <td class="border px-4 py-2">{{ $room->name }}</td>
                                     <td class="border px-4 py-2">{{ $room->description }}</td>
                                     <td class="border px-4 py-2">
-                                        <a href="{{ route('rooms.edit', $room) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        <x-primary-button onclick="window.location='{{ route('hotels.rooms.show', ['room' => $room->id, 'hotel' => $hotel  ]) }}'">
+                                            {{ __('View') }}
+                                        </x-primary-button>
+                                        <x-secondary-button onclick="window.location='{{ route('hotels.rooms.edit', ['room' => $room->id, 'hotel' => $hotel  ]) }}'">
                                             {{ __('Edit') }}
-                                        </a>
-                                        <form action="{{ route('rooms.destroy', $room) }}" method="POST" class="inline">
+                                        </x-secondary-button>
+                                        <form action="{{ route('hotels.rooms.destroy', ['room' => $room->id, 'hotel' => $room->hotel_id]) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            <x-danger-button onclick="{{ route('hotels.rooms.destroy', ['room' => $room->id, 'hotel' => $room->hotel_id]) }}" type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                                 {{ __('Delete') }}
-                                            </button>
+                                            </x-danger-button>
                                         </form>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    {{ $rooms->links() }}
                 </div>
             </div>
         </div>

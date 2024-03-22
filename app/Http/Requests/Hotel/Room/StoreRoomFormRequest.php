@@ -4,6 +4,28 @@ namespace App\Http\Requests\Hotel\Room;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *     title="StoreRoomFormRequest",
+ *     description="Store Room Form Request",
+ *     required={"name", "description", "hotel_id"},
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         example="Room 1"
+ *     ),
+ *     @OA\Property(
+ *         property="description",
+ *         type="string",
+ *         example="Room 1 description"
+ *     ),
+ *     @OA\Property(
+ *         property="hotel_id",
+ *         type="integer",
+ *         example="1"
+ *     )
+ * )
+ */
 class StoreRoomFormRequest extends FormRequest
 {
     public function rules(): array
@@ -11,7 +33,6 @@ class StoreRoomFormRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'price' => 'required|numeric',
             'hotel_id' => 'required|exists:hotels,id'
         ];
     }

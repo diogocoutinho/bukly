@@ -22,18 +22,18 @@
                         <p class="text-gray-700 text-sm">{{ $room->price }}</p>
                     </div>
                     <div class="flex items center justify-between">
-                        <a href="{{ route('hotels.room.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <a href="{{ route('hotels.rooms.index', ['hotel' => $room->hotel_id]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             {{ __('Back') }}
                         </a>
-                        <a href="{{ route('hotels.room.edit', $room) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <a href="{{ route('hotels.rooms.edit', ['hotel' => $room->hotel_id, 'room' => $room->id]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             {{ __('Edit') }}
                         </a>
-                        <form action="{{ route('hotels.room.destroy', $room) }}" method="POST" class="inline">
+                        <form action="{{ route('hotels.rooms.destroy', ['hotel' => $room->hotel_id, 'room' => $room->id]) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            <x-danger-button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 {{ __('Delete') }}
-                            </button>
+                            </x-danger-button>
                         </form>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
             {{ __('Create Hotel') }}
         </h2>
     </x-slot>
-
+    <div id="error-message"></div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -14,27 +14,32 @@
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Name') }}</label>
                             <input type="text" name="name" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <x-input-error for="name" class="mt-2" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="zip_code" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Zip') }}</label>
+                            <input type="text" name="zip_code" id="zip_code" onblur="getAddress()" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <x-input-error for="zip_code" class="mt-2" />
                         </div>
                         <div class="mb-4">
                             <label for="address" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Address') }}</label>
                             <input type="text" name="address" id="address" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <x-input-error for="address" class="mt-2" />
                         </div>
                         <div class="mb-4">
                             <label for="city" class="block text-gray-700 text-sm font-bold mb-2">{{ __('City') }}</label>
                             <input type="text" name="city" id="city" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <x-input-error for="city" class="mt-2" />
                         </div>
                         <div class="mb-4">
                             <label for="state" class="block text-gray-700 text-sm font-bold mb-2">{{ __('State') }}</label>
                             <input type="text" name="state" id="state" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="zip_code" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Zip') }}</label>
-                            <input type="text" name="zip_code" id="zip_code" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <x-input-error for="state" class="mt-2" />
                         </div>
                         <div class="flex items center justify-between">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <x-secondary-button type="submit">
                                 {{ __('Create') }}
-                            </button>
+                            </x-secondary-button>
                             <a href="{{ route('hotels.index') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 {{ __('Cancel') }}
                             </a>
@@ -45,3 +50,4 @@
         </div>
     </div>
 </x-app-layout>
+

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('hotels', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip_code');
-            $table->string('website')->nullable();
+            $table->string('name')->nullable(false);
+            $table->string('address')->nullable(false);
+            $table->string('city')->nullable(false);
+            $table->string('state')->nullable(false);
+            $table->string('zip_code')->nullable(false);
+            $table->string('website')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -5,84 +5,144 @@ namespace App\Http\Controllers\Hotel\Room;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Hotel\Room\StoreRoomFormRequest;
 use App\Http\Requests\Hotel\Room\UpdateRoomFormRequest;
+use App\Models\Hotel\Hotel;
 use App\Models\Hotel\Room\Room;
-use Illuminate\Http\Request;
 
+/**
+ * Controlador para gerenciar quartos de hotel.
+ *
+ * Este controlador é responsável por manipular as solicitações HTTP relacionadas aos quartos de hotel.
+ * Ele fornece métodos para listar, criar, atualizar e excluir quartos de hotel.
+ */
 class RoomController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Exibe uma lista de quartos de um hotel.
+     *
+     * Este método retorna uma view com a lista de quartos de um hotel paginada.
+     *
+     * @param int $hotelId O ID do hotel.
+     * @return \Illuminate\View\View A view da lista de quartos de um hotel.
      */
-    public function index()
+    public function index(int $hotelId)
     {
+        $rooms = Room::where('hotel_id', $hotelId)->paginate(10);
+        $hotel = Hotel::findOrFail($hotelId);
+
         return view('hotel.room.index', [
-            'rooms' => Room::all()
+            'rooms' => $rooms,
+            'hotel' => $hotelId,
+            'hotelName' => $hotel->name
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostra o formulário para criar um novo quarto de hotel.
+     *
+     * Este método retorna uma view com o formulário para criar um novo quarto de hotel.
+     *
+     * @param int $hotelId O ID do hotel.
+     * @return \Illuminate\View\View A view do formulário de criação de quarto de hotel.
      */
-    public function create()
+    public function create(int $hotelId)
     {
-        return view('hotel.room.create');
+        return view('hotel.room.create', ['hotel' => $hotelId]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena um novo quarto de hotel no banco de dados.
+     *
+     * Este método tenta criar um novo quarto de hotel com os dados da solicitação.
+     * Se a criação for bem-sucedida, redireciona para a página de exibição do quarto de hotel.
+     * Se ocorrer um erro, redireciona de volta para a página de criação com os erros.
+     *
+     * @param StoreRoomFormRequest $request A solicitação com os dados do quarto de hotel.
+     * @return \Illuminate\Http\RedirectResponse Redireciona para a página de exibição do quarto de hotel ou de volta para a página de criação com erros.
      */
     public function store(StoreRoomFormRequest $request)
     {
         try {
             $room = Room::create($request->all());
-            return redirect()->route('rooms.show', $room->id);
+            return redirect()->route('hotels.rooms.show', ['hotel' => $room->hotel_id, 'room' => $room->id]);
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
 
     /**
-     * Display the specified resource.
+     * Exibe um quarto de hotel específico.
+     *
+     * Este método retorna uma view com os detalhes de um quarto de hotel específico.
+     *
+     * @param int $hotelId O ID do hotel.
+     * @param int $roomId O ID do quarto de hotel.
+     * @return \Illuminate\View\View A view do quarto de hotel.
      */
-    public function show(string $id)
+    public function show(int $hotelId, int $roomId)
     {
         return view('hotel.room.show', [
-            'room' => Room::findOrFail($id)
+            'room' => Room::where('hotel_id', $hotelId)->findOrFail($roomId),
+            'hotel' => $hotelId
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Mostra o formulário para editar um quarto de hotel específico.
+     *
+     * Este método retorna uma view com o formulário para editar um quarto de hotel específico.
+     *
+     * @param int $hotelId O ID do hotel.
+     * @param int $roomId O ID do quarto de hotel.
+     * @return \Illuminate\View\View A view do formulário de edição de quarto de hotel.
      */
-    public function edit(string $id)
+    public function edit(int $hotelId, int $roomId)
     {
         return view('hotel.room.edit', [
-            'room' => Room::findOrFail($id)
+            'room' => Room::where('hotel_id', $hotelId)->findOrFail($roomId),
+            'hotel' => $hotelId
         ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza um quarto de hotel específico no banco de dados.
+     *
+     * Este método tenta atualizar um quarto de hotel com os dados da solicitação.
+     * Se a atualização for bem-sucedida, redireciona para a página de exibição do quarto de hotel.
+     * Se ocorrer um erro, redireciona de volta para a página de edição com os erros.
+     *
+     * @param UpdateRoomFormRequest $request A solicitação com os dados do quarto de hotel.
+     * @param int $hotelId O ID do hotel.
+     * @param int $roomId O ID do quarto de hotel.
+     * @return \Illuminate\Http\RedirectResponse Redireciona para a página de exibição do quarto de hotel ou de volta para a página de edição com erros.
      */
-    public function update(UpdateRoomFormRequest $request, string $id)
+    public function update(UpdateRoomFormRequest $request, string $hotelId, string $roomId)
     {
         try {
-            $room = Room::findOrFail($id);
+            $room = Room::where('hotel_id', $hotelId)->findOrFail($roomId);
             $room->update($request->all());
-            return redirect()->route('rooms.show', $room->id);
+            return redirect()->route('hotels.rooms.show', ['room' => $room->id, 'hotel' => $room->hotel_id]);
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove um quarto de hotel específico do banco de dados.
+     *
+     * Este método exclui um quarto de hotel específico do banco de dados.
+     * Se a exclusão for bem-sucedida, redireciona para a página de lista de quartos de hotel.
+     * Se ocorrer um erro, redireciona de volta para a página de exibição do quarto de hotel com os erros.
+     *
+     * @param int $hotelId O ID do hotel.
+     * @param int $roomId O ID do quarto de hotel.
+     * @return \Illuminate\Http\RedirectResponse Redireciona para a página de lista de quartos de hotel ou de volta para a página de exibição do quarto de hotel com erros.
      */
-    public function destroy(string $id)
+    public function destroy(int $hotelId, int $roomId)
     {
         try {
-            Room::findOrFail($id)->delete();
-            return redirect()->route('hotels.rooms.index');
+            $room = Room::where('hotel_id', $hotelId)->findOrFail($roomId);
+            $room->delete();
+            return redirect()->route('hotels.rooms.index', ['hotel' => $hotelId]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }
