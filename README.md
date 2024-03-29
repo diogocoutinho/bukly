@@ -80,6 +80,14 @@ A aplicação deve possuir as seguintes funcionalidades:
 - Exclusão de hoteis
 - Exclusão de quartos
 
+## Documentação da API
+
+A documentação foi feita utilizando Swagger e para que a mesma seja acessada, basta rodar o comando abaixo e acessar a URL `http://localhost:8000/api/documentation`:
+
+```bash
+php artisan l5-swagger:generate
+```
+
 ## Testes
 
 Os testes do projeto estão localizados no diretório `tests/Feature`. Agrupei os testes de hoteis e quartos para facilitar a execução dos mesmos. Para rodar os testes, execute o seguinte comando:
